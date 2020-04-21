@@ -1,0 +1,37 @@
+.App {
+  text-align: center;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.errorMessage {
+  margin: auto;
+  font-weight: bold;
+  color: rgb(161, 15, 15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 694px) and (max-width: 915px) {
+  .movie {
+    max-width: 33%;
+  }
+}
+
+@media screen and (min-width: 652px) and (max-width: 693px) {
+  .movie {
+    max-width: 50%;
+  }
+}
+
+
+@media screen and (max-width: 651px) {
+  .movie {
+    max-width: 100%;
+    margin: auto;
+  }
+}
