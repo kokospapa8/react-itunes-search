@@ -4,7 +4,7 @@ import Header from "./Header";
 import Album from "./Album";
 import Search from "./Search";
 
-const ITUNES_API_URL = "https://itunes.apple.com/search?term=Kanye&entity=album&attribute=artistTerm"; // you should replace this with yours
+// const ITUNES_API_URL = "https://itunes.apple.com/search?term=Kanye&entity=album&attribute=artistTerm";
 
 const initialState = {
   loading: true,
@@ -41,20 +41,20 @@ const reducer = (state, action) => {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {  
-    fetch(ITUNES_API_URL)
-        .then(response => response.json())
-        .then(jsonResponse => {
-          dispatch({
-              type: "SEARCH_ALBUM_SUCCESS",
-              results: jsonResponse.results
-          });
-    });
-  }, []);
+  // useEffect(() => {  
+  //   fetch(ITUNES_API_URL)
+  //       .then(response => response.json())
+  //       .then(jsonResponse => {
+  //         dispatch({
+  //             type: "SEARCH_ALBUM_SUCCESS",
+  //             results: jsonResponse.results
+  //         });
+  //   });
+  // }, []);
 
   const search = searchValue => {
     dispatch({
-      type: "SEARCH_MOVIES_REQUEST"
+      type: "SEARCH_ALBUM_REQUEST"
     });
     console.log(searchValue);
 
