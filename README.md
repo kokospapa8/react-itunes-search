@@ -1,6 +1,6 @@
 
 # Name of the project &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
-> iTunes search React app
+> React app using iTunes search API
 
 ![preview](img/preview.png)
 
@@ -14,7 +14,6 @@ you need Node (≥ 6) and just run npm start
 > npm start
 ```
 
-## Developing
 
 ### Built With
 React, reducer
@@ -26,6 +25,9 @@ N/A
 
 ```npm test```
 
+## deploy
+refered this [react-gh-pages](https://github.com/gitname/react-gh-pages) to deploy this on github
+```npm run deploy```
 
 ## Api Reference
 
