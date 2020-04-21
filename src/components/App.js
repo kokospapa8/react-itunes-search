@@ -7,7 +7,7 @@ import Search from "./Search";
 // const ITUNES_API_URL = "https://itunes.apple.com/search?term=Kanye&entity=album&attribute=artistTerm";
 
 const initialState = {
-  loading: true,
+  loading: false,
   albums: [],
   errorMessage: null
 };
@@ -58,7 +58,7 @@ function App() {
     });
     console.log(searchValue);
 
-    fetch(`https://itunes.apple.com/search?term=${searchValue}&entity=album&attribute=artistTerm`)
+    fetch(`https://itunes.apple.com/search?term=${searchValue}&entity=album&attribute=artistTerm&limit=10`)
       .then(response => response.json())
       .then(jsonResponse => {
         if (jsonResponse.resultCount > 0) {
@@ -83,7 +83,9 @@ function App() {
       <Header text="iTUNES ALBUM SEARCH" />
       <Search search={search} />
       <div className="albums">
-        {loading && !errorMessage ? (
+        {!loading && !albums ? (
+          <span>Please type search term</span>
+        ) : loading && !errorMessage ? (
          <span>loading...</span>
          ) : errorMessage ? (
           <div className="errorMessage">{errorMessage}</div>
