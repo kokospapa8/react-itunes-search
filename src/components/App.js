@@ -1,10 +1,9 @@
-import React,  { useEffect, useReducer } from 'react';
+import React,  { useReducer } from 'react';
 import './App.css';
 import Header from "./Header";
 import Album from "./Album";
 import Search from "./Search";
-
-// const ITUNES_API_URL = "https://itunes.apple.com/search?term=Kanye&entity=album&attribute=artistTerm";
+import {Accordion, Button, Card} from 'react-bootstrap'
 
 const initialState = {
   loading: false,
@@ -41,17 +40,6 @@ const reducer = (state, action) => {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // useEffect(() => {  
-  //   fetch(ITUNES_API_URL)
-  //       .then(response => response.json())
-  //       .then(jsonResponse => {
-  //         dispatch({
-  //             type: "SEARCH_ALBUM_SUCCESS",
-  //             results: jsonResponse.results
-  //         });
-  //   });
-  // }, []);
-
   const search = searchValue => {
     dispatch({
       type: "SEARCH_ALBUM_REQUEST"
@@ -81,6 +69,22 @@ function App() {
   return (
     <div className="App">
       <Header text="iTUNES ALBUM SEARCH" />
+      <Accordion>
+        <Card>
+          <Card.Header>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0">
+              Disclaimer
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body > The Search API allows you to place search fields in your website to search for content within the iTunes Store and Apple Books Store. 
+              You can search for a variety of content; including books, movies, podcasts, music, music videos, audiobooks, and TV shows.
+              Developers may use promotional content in the API, including previews of songs, music videos, album art and App icons only to promote store content and not for entertainment purposes. Use of sound samples and other assets from the API must be proximate to a store badge
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+
       <Search search={search} />
       <div className="albums">
         {!loading && !albums ? (

@@ -9,8 +9,12 @@ This is an sample react app to demonstrate 'hook', credits to
 
 ## Installing / Getting started
 
-you need Node (≥ 6) and just run npm start
+you need Node (≥ 6) 
+
 ```
+> npm install -g create-react-app
+> npm install gh-pages --save-dev
+> npm react-bootstrap
 > npm start
 ```
 
@@ -37,9 +41,9 @@ I used itunes search api to get results of albums and more
 
 
 ### TODO:
-- use entity selector for query 
-  - artist
-  - tracks
-  - etc 
-- hyperlink for collection and artist etc 
- 
+- refer to [issues](https://github.com/kokospapa8/react-itunes-search/issues)
+
+## Credits
+- [tutorial](https://www.freecodecamp.org/news/how-to-build-a-movie-search-app-using-react-hooks-24eb72ddfaf7/)
+- [creat-react-app](https://reactjs.org/docs/create-a-new-react-app.html)
+- [react-bootstrap](https://react-bootstrap.github.io/)
