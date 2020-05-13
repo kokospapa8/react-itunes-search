@@ -39,6 +39,7 @@ push to repo
 ## Api Reference
 
 [iTunes Search API](https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/)
+[swagger](https://kokospapa8.github.io/swagger-itunes-search-api/)
 
 I used itunes search api to get results of albums and more
 
