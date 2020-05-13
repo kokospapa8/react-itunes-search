@@ -37,6 +37,7 @@ const Search = (props) => {
   const resetInputField = () => {
     // setSearchValue("");
     setForm({
+      ...form,
       searchValue: "",
     });
   };

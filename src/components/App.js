@@ -43,8 +43,8 @@ function App() {
     dispatch({
       type: "SEARCH_ALBUM_REQUEST",
     });
+    const { searchValue, attribute, limit } = form;
 
-    const { attribute, searchValue, limit } = form;
     fetch(
       `https://itunes.apple.com/search?term=${searchValue}&entity=album&attribute=${attribute}&limit=${limit}`
     )
