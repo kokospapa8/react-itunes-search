@@ -14,7 +14,8 @@ you need Node (≥ 6)
 ```
 > npm install -g create-react-app
 > npm install gh-pages --save-dev
-> npm react-bootstrap
+> npm install --save react-bootstrap
+> npm install --save react-infinite-scroll-component
 > npm start
 ```
 
