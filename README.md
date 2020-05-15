@@ -33,8 +33,13 @@ N/A
 ## deploy
 
 refered this [react-gh-pages](https://github.com/gitname/react-gh-pages) to deploy this on github
-`npm run deploy`
-push to repo
+
+```
+> npm run deploy
+> git add .
+> git commit -m "<message>"
+> git push origin master
+```
 
 ## Api Reference
 

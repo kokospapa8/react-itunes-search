@@ -2,17 +2,11 @@ import React, { useState } from "react";
 import "./Search.css";
 
 const Search = (props) => {
-  //current state, function to update it
-  // const [searchValue, setSearchValue] = useState("");
-  // const [attribute, setAttribute] = useState("artistTerm");
-  // const [limit, setlimit] = useState(10);
-
   const [form, setForm] = useState({
     searchValue: "",
     attribute: "artistTerm",
     limit: "10",
   });
-  const { searchValue, attribute, limit } = form;
 
   const onChange = (e) => {
     const nextForm = {
@@ -21,18 +15,6 @@ const Search = (props) => {
     };
     setForm(nextForm);
   };
-
-  // const handleSearchInputChanges = (e) => {
-  //   setSearchValue(e.target.value);
-  // };
-
-  // const handleAttributeChange = (e) => {
-  //   setAttribute(e.target.value);
-  // };
-
-  // const handleLimitChange = (e) => {
-  //   setlimit(e.target.value);
-  // };
 
   const resetInputField = () => {
     // setSearchValue("");
@@ -59,7 +41,7 @@ const Search = (props) => {
       </select>
       <input
         name="searchValue"
-        value={searchValue}
+        value={form.searchValue}
         onChange={onChange}
         type="text"
       />

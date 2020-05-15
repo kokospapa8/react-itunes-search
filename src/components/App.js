@@ -3,33 +3,42 @@ import "./App.css";
 import Header from "./Header";
 import Album from "./Album";
 import Search from "./Search";
-import { Accordion, Button, Card } from "react-bootstrap";
+import Disclaimer from "./Disclaimer";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Spinner } from "react-bootstrap";
 
 const initialState = {
-  loading: false,
   albums: [],
+  offset: 0,
+  form: null,
   errorMessage: null,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SEARCH_ALBUM_REQUEST":
+    case "SEARCH_ALBUM_INIT":
       return {
         ...state,
-        loading: true,
+        form: action.form,
         errorMessage: null,
       };
     case "SEARCH_ALBUM_SUCCESS":
       return {
         ...state,
-        loading: false,
         albums: action.results,
+        offset: 0,
       };
     case "SEARCH_ALBUM_FAILURE":
       return {
         ...state,
-        loading: false,
         errorMessage: action.error,
+        form: null,
+      };
+    case "MORE_ALBUM_SUCCESS":
+      return {
+        ...state,
+        albums: state.albums.concat(action.results),
+        offset: state.offset + parseInt(state.form.limit),
       };
     default:
       return state;
@@ -40,74 +49,86 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const search = (form) => {
-    dispatch({
-      type: "SEARCH_ALBUM_REQUEST",
-    });
-    const { searchValue, attribute, limit } = form;
+    fetchData(form);
+  };
 
-    fetch(
-      `https://itunes.apple.com/search?term=${searchValue}&entity=album&attribute=${attribute}&limit=${limit}`
-    )
+  const loadMore = () => {
+    fetchData();
+  };
+
+  const fetchData = (form) => {
+    const { offset } = state;
+    const initialSearch = form ? true : false;
+    if (!initialSearch) {
+      form = state.form;
+    } else {
+      dispatch({
+        type: "SEARCH_ALBUM_INIT",
+        form: form,
+      });
+    }
+
+    //if form is not initialized
+    if (form == null) {
+      dispatch({
+        type: "SEARCH_ALBUM_FAILURE",
+        error: "invalid search value",
+      });
+      return;
+    }
+
+    const { searchValue, attribute, limit } = form;
+    const newOffset = initialSearch ? offset : offset + parseInt(limit);
+
+    const dispatchType = initialSearch
+      ? "SEARCH_ALBUM_SUCCESS"
+      : "MORE_ALBUM_SUCCESS";
+    const fetchURL = initialSearch
+      ? `https://itunes.apple.com/search?term=${searchValue}&entity=album&attribute=${attribute}&limit=${limit}&offset=${newOffset}`
+      : `https://itunes.apple.com/search?term=${searchValue}&entity=album&attribute=${attribute}&limit=${limit}&offset=${newOffset}`;
+
+    fetch(fetchURL)
       .then((response) => response.json())
       .then((jsonResponse) => {
         if (jsonResponse.resultCount > 0) {
           dispatch({
-            type: "SEARCH_ALBUM_SUCCESS",
+            type: dispatchType,
             results: jsonResponse.results,
           });
         } else {
-          // console.log(jsonResponse);
           dispatch({
-            type: "SEARCH_ALBUM_SUCCESS",
+            type: "SEARCH_ALBUM_FAILURE",
             error: jsonResponse.Error,
           });
         }
       });
   };
 
-  const { albums, errorMessage, loading } = state;
+  const { albums, form, errorMessage } = state;
 
   return (
     <div className="App">
       <Header text="iTUNES ALBUM SEARCH" />
-      <Accordion>
-        <Card>
-          <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0">
-              Disclaimer
-            </Accordion.Toggle>
-          </Card.Header>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body>
-              {" "}
-              The Search API allows you to place search fields in your website
-              to search for content within the iTunes Store and Apple Books
-              Store. You can search for a variety of content; including books,
-              movies, podcasts, music, music videos, audiobooks, and TV shows.
-              Developers may use promotional content in the API, including
-              previews of songs, music videos, album art and App icons only to
-              promote store content and not for entertainment purposes. Use of
-              sound samples and other assets from the API must be proximate to a
-              store badge
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
-
+      <Disclaimer />
       <Search search={search} />
-      <div className="albums">
-        {!loading && !albums ? (
-          <span>Please type search term</span>
-        ) : loading && !errorMessage ? (
-          <span>loading...</span>
-        ) : errorMessage ? (
-          <div className="errorMessage">{errorMessage}</div>
-        ) : (
-          albums.map((album, index) => (
+      <InfiniteScroll
+        dataLength={albums.length} //This is important field to render the next data
+        next={loadMore}
+        hasMore={true}
+        loader={form ? <Spinner animation="border" /> : ""}
+        endMessage={
+          <p style={{ textAlign: "center" }}>
+            <b>End of content</b>
+          </p>
+        }
+      >
+        <div className="albums">
+          {albums.map((album, index) => (
             <Album key={`${index}-${album.collectionId}`} album={album} />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      </InfiniteScroll>
+      <div>{errorMessage ? { errorMessage } : ""}</div>
     </div>
   );
 }
