@@ -1,8 +1,13 @@
 import React from "react";
-import "./Album.css";
+import styled from "styled-components";
 
 import Card from "react-bootstrap/Card";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
+
+const AlbumContainer = styled.div`
+  padding: 5px 25px 10px 25px;
+  max-width: 25%;
+`;
 
 const Album = ({ album }) => {
   const albumReleaseDate = album.releaseDate.substring(0, 10);
@@ -17,7 +22,7 @@ const Album = ({ album }) => {
       : album.artistName;
 
   return (
-    <div className="Album">
+    <AlbumContainer>
       <Card style={{ width: "18rem" }}>
         <Card.Img variant="top" src={albumArt} />
         <Card.Header>{collectionName}</Card.Header>
@@ -39,10 +44,8 @@ const Album = ({ album }) => {
           </Card.Link>
         </Card.Footer>
       </Card>
-    </div>
+    </AlbumContainer>
   );
 };
 
-export default Album;
-
-// collectionViewUrl
+export default React.memo(Album);

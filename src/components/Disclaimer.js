@@ -1,7 +1,7 @@
 import React from "react";
 import { Accordion, Button, Card } from "react-bootstrap";
 
-const Header = (props) => {
+const Disclaimer = (props) => {
   return (
     <Accordion>
       <Card>
@@ -27,4 +27,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default Disclaimer;

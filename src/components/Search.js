@@ -1,5 +1,33 @@
 import React, { useState } from "react";
-import "./Search.css";
+import styled from "styled-components";
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* margin-top: 10px; */
+  margin: 10px;
+`;
+
+const StyledSubmitButton = styled.input`
+  padding: 5px;
+  background-color: transparent;
+  color: black;
+  border: 1px solid black;
+  width: 80px;
+  margin-left: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #282c34;
+    color: antiquewhite;
+  }
+`;
+
+const StyledTextInput = styled.input`
+  width: 40%;
+  min-width: 170px;
+`;
 
 const Search = (props) => {
   const [form, setForm] = useState({
@@ -17,7 +45,6 @@ const Search = (props) => {
   };
 
   const resetInputField = () => {
-    // setSearchValue("");
     setForm({
       ...form,
       searchValue: "",
@@ -26,20 +53,19 @@ const Search = (props) => {
 
   const callSearchFunction = (e) => {
     e.preventDefault();
-    // console.log(form);
     props.search(form);
     resetInputField();
   };
 
   return (
-    <form className="search">
+    <StyledForm>
       <select id="attribute" name="attribute" onChange={onChange}>
         <option value="artistTerm">Search by artist name</option>
         <option value="albumTerm">Search by album name</option>
         <option value="composerTerm">Search by composer name</option>
         <option value="songTerm">Search by song title</option>
       </select>
-      <input
+      <StyledTextInput
         name="searchValue"
         value={form.searchValue}
         onChange={onChange}
@@ -52,8 +78,12 @@ const Search = (props) => {
         <option value="100">100</option>
         <option value="200">200</option>
       </select>
-      <input onClick={callSearchFunction} type="submit" value="SEARCH" />
-    </form>
+      <StyledSubmitButton
+        onClick={callSearchFunction}
+        type="submit"
+        value="SEARCH"
+      />
+    </StyledForm>
   );
 };
 

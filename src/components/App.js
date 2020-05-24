@@ -1,11 +1,11 @@
 import React, { useReducer } from "react";
-import "./App.css";
 import Header from "./Header";
 import Album from "./Album";
 import Search from "./Search";
 import Disclaimer from "./Disclaimer";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Spinner } from "react-bootstrap";
+import styled from "styled-components";
 
 const initialState = {
   albums: [],
@@ -44,6 +44,23 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
+const StyledApp = styled.div`
+  text-align: center;
+  box-sizing: border-box;
+`;
+
+const StyledErrorMessage = styled.div`
+  margin: auto;
+  font-weight: bold;
+  color: rgb(161, 15, 15);
+`;
+
+const StyledAlbums = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+`;
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -107,7 +124,7 @@ function App() {
   const { albums, form, errorMessage } = state;
 
   return (
-    <div className="App">
+    <StyledApp>
       <Header text="iTUNES ALBUM SEARCH" />
       <Disclaimer />
       <Search search={search} />
@@ -122,14 +139,16 @@ function App() {
           </p>
         }
       >
-        <div className="albums">
+        <StyledAlbums>
           {albums.map((album, index) => (
             <Album key={`${index}-${album.collectionId}`} album={album} />
           ))}
-        </div>
+        </StyledAlbums>
       </InfiniteScroll>
-      <div>{errorMessage ? { errorMessage } : ""}</div>
-    </div>
+      <StyledErrorMessage>
+        {errorMessage ? { errorMessage } : ""}
+      </StyledErrorMessage>
+    </StyledApp>
   );
 }
 

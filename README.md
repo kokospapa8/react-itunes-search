@@ -3,6 +3,7 @@
 > React app using iTunes search API
 
 ![preview](img/preview.png)
+[github page](https://kokospapa8.github.io/react-itunes-search/)
 
 This is an sample react app to demonstrate 'hook', credits to
 [samie820](https://github.com/samie820/hooks-movie-app/)
@@ -58,3 +59,4 @@ I used itunes search api to get results of albums and more
 - [tutorial](https://www.freecodecamp.org/news/how-to-build-a-movie-search-app-using-react-hooks-24eb72ddfaf7/)
 - [creat-react-app](https://reactjs.org/docs/create-a-new-react-app.html)
 - [react-bootstrap](https://react-bootstrap.github.io/)
+- [react-infinite-scroll](https://www.npmjs.com/package/react-infinite-scroll-component)
