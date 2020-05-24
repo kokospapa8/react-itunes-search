@@ -64,6 +64,7 @@ const StyledAlbums = styled.div`
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { albums, form, errorMessage } = state;
 
   const search = (form) => {
     fetchData(form);
@@ -121,8 +122,6 @@ function App() {
       });
   };
 
-  const { albums, form, errorMessage } = state;
-
   return (
     <StyledApp>
       <Header text="iTUNES ALBUM SEARCH" />
@@ -145,6 +144,7 @@ function App() {
           ))}
         </StyledAlbums>
       </InfiniteScroll>
+
       <StyledErrorMessage>
         {errorMessage ? { errorMessage } : ""}
       </StyledErrorMessage>
